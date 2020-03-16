@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+
+{% block title %}
+    Welcome!
+{% endblock title %}
+
+
+{% block content %}
+    <div class="jumbotron">
+        <h1 class="text-center">Hello, {{request.user.username}} !</h1>
+        <a class="btn btn-block btn-danger" href="{% url 'logout' %}">Logout</a>
+        {% if request.user.is_superuser %}
+        <h2 class="text-center">As you're superuser, you can check out some more stuff!</h2>
+            <a class="btn btn-block btn-info" href="{% url 'users-list' %}">Users</a>
+            <a class="btn btn-block btn-warning" href="{% url 'shops:list' %}">Shops</a>
+        {% endif %}
+    </div>
+{% endblock content %}

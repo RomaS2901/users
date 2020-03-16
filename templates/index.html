@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+
+{% block title %}
+    Home
+{% endblock %}
+
+{% block content %}
+    <div class="jumbotron">
+        {% if user.is_authenticated %}
+            <h1 class="text-center">C U Soon :) </h1>
+            <a class="btn btn-block btn-warning" href="{% url 'logout' %}">Logout</a>
+            {% if user.is_superuser %}
+                    <a class="btn btn-block btn-warning" href="{% url 'admin:index' %}">Admin</a>
+            {% endif %}
+        {% else %}
+            <h1 class="text-center">This is home page! All magic happens when you log in...</h1>
+            <a class="btn btn-block btn-success" href="{% url 'login' %}">Login</a>
+        {% endif %}
+    </div>
+{% endblock %}

@@ -1,0 +1,52 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load bootstrap4 %}
+
+{% block title %}
+    Shops
+{% endblock %}
+
+{% block stylesheet %}
+    <link rel="stylesheet" href="{% static 'shops/shops.css' %}">
+{% endblock %}
+
+{% block content %}
+    <section class="section container">
+        {% for shop in shops %}
+            <div class="row">
+                <div class="col shop__item bg-info">
+                    <div class="container">
+                        <div class="row">
+                            <div class="col text-center">{{ shop.shop_number }}</div>
+                            <div class="col text-center">{{ shop.name }}</div>
+                            <div class="col text-center">{{ shop.user.username }}</div>
+                        </div>
+                    </div>
+                    <a class="btn btn-block btn-danger" href="{% url 'shops:delete' pk=shop.pk %}">Delete Shop</a>
+                </div>
+            </div>
+        {% empty %}
+            <div class="row">
+                <div class="col">
+                    There are no shops...
+                </div>
+            </div>
+        {% endfor %}
+    </section>
+    <section class="section container create-shop">
+        <h1 class="text-center">Create shop below:</h1>
+        <form action="{% url 'shops:create' %}" method="post">
+            {% csrf_token %}
+            {% bootstrap_form create_shop_form layout="horizontal" %}
+            <button class="btn btn-block btn-success" type="submit">Create Shop</button>
+        </form>
+    </section>
+    <section class="section container update-shop">
+        <h1 class="text-center">Update shop item below:</h1>
+        <form action="{% url 'shops:update' %}" method="post">
+            {% csrf_token %}
+            {% bootstrap_form update_shop_form layout="horizontal" %}
+            <button class="btn btn-block btn-success" type="submit">Update Shop</button>
+        </form>
+    </section>
+{% endblock %}

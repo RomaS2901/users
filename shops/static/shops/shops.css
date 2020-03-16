@@ -1,0 +1,14 @@
+.section {
+    margin: 20px auto;
+    padding: 40px;
+    box-shadow: 0 0 5px gray;
+    border-radius: 10px;
+}
+
+.shop__item {
+    padding: 10px;
+    font-size: 25px;
+    margin: 10px auto;
+    border-radius: 10px;
+    font-weight: 900;
+}

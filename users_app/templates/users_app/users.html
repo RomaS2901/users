@@ -1,0 +1,50 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load bootstrap4 %}
+
+
+{% block title %}
+    Users
+{% endblock title %}
+
+{% block stylesheet %}
+    <link rel="stylesheet" href="{% static 'users_app/users.css' %}">
+{% endblock stylesheet %}
+
+{% block content %}
+<div class="jumbotron text-center">
+  <h1 class="text-center">Hello{% if request.user.is_authenticated %}, {{request.user.username}}{% endif %}!</h1>
+  <h2>Currently registered users:</h2>
+  <section class="section users container-fluid">
+    <div class="container">
+    </div>
+    {% for user in users %}
+      <div class="row m-2">
+        <div class="col">
+          <div class="user__item bg-info">
+            {{ user.username }}
+              <a class="btn btn-block btn-danger" href="{% url 'users-delete' pk=user.pk %}">Delete user - {{ user.username }}</a>
+          </div>
+        </div>
+      </div>
+    {% endfor %}
+  </section>
+  <section class="section users__create container-fluid">
+    <h2 class="text-center">Create new user:</h2>
+    <form action="{% url 'users-create' %}" method="POST">
+      {% csrf_token %}
+      {% bootstrap_form user_create_form layout='horizontal' %}
+      <button class="btn btn-block btn-success" type="submit">Create new user</button>
+    </form>
+  </section>
+  <section class="section users__update container-fluid">
+    <h2 class="text-center">Update existing user:</h2>
+    <form action="{% url 'users-update' %}" method="POST">
+      {% csrf_token %}
+      {% bootstrap_form user_update_form layout='horizontal' %}
+      <button class="btn btn-block btn-success" type="submit">Update user</button>
+    </form>
+  </section>
+</div>
+
+{% endblock content %}

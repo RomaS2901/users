@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+{% load bootstrap4 %}
+
+{% block title %}
+    Login
+{% endblock title %}
+
+{% block content %}
+<div class="jumbotron">
+    <h1 class="text-center">Please, fill in your credentials</h1>
+    <form action="{% url 'login' %}" method="post">
+        {% csrf_token %}
+        {% bootstrap_form auth_form layout="horizontal" %}
+        <button class="btn btn-block btn-success">Login</button>
+    </form>
+</div>
+{% endblock content %}
